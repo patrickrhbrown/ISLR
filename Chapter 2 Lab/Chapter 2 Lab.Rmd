@@ -1,0 +1,170 @@
+---
+title: "Chapter 2 Introduction to Statistical Learning Lab"
+output: html_notebook
+---
+
+```{r}
+rm(list=ls())
+```
+
+
+# Chapter 2 Lab: Introduction to R
+
+# Basic Commands
+```{r}
+x <- c(1,3,2,5)
+x
+```
+
+```{r}
+x = c(1,6,2)
+x
+```
+```{r}
+y = c(1,4,3)
+length(x)
+length(y)
+x+y
+```
+```{r}
+ls()
+```
+
+```{r}
+rm(x,y) #remove specific items
+ls()
+```
+
+```{r}
+rm(list=ls()) #remove all items in environment
+```
+
+```{r}
+?matrix #look at help for matrix func
+```
+
+```{r}
+x=matrix(data=c(1,2,3,4), nrow=2, ncol=2)
+x
+```
+
+```{r}
+x=matrix(c(1,2,3,4),2,2) #same effect as last call to matrix but probably better to be explicit
+```
+
+```{r}
+matrix(c(1,2,3,4),2,2,byrow=TRUE)
+```
+
+```{r}
+sqrt(x)
+```
+
+```{r}
+x^2 #raises elementwise
+```
+```{r}
+x=rnorm(50)
+y=x+rnorm(50,mean=50,sd=.1) #creates a set of standard normal random variables with a mean of 50 and a standard deviation of 0.1.  Use set.seed() to reproduce conditions using pseudorandom number generation using an arbitrary integer argument
+cor(x,y)
+```
+
+```{r}
+set.seed(1303)
+rnorm(50)
+```
+
+```{r}
+set.seed(3)
+y=rnorm(100) #funcs to compute summary statistics 
+mean(y)
+```
+
+```{r}
+var(y)
+```
+
+```{r}
+sqrt(var(y)) #computes the variance
+```
+
+```{r}
+sd(y) #computes standard deviation  of the mean
+```
+
+# Graphics
+
+```{r}
+x=rnorm(100)
+y=rnorm(100)
+plot(x,y)
+plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",main="Plot of X vs Y")
+```
+
+```{r}
+pdf("Figure.pdf")
+plot(x,y,col="green")
+dev.off() #indicates to R we are done making the plot
+```
+
+```{r}
+x=seq(1,10) #creates sequences of numbers
+x
+```
+
+```{r}
+x=1:10 #alternative method, but seq is more versatile
+x
+```
+```{r}
+x=seq(-pi,pi,length=50)
+```
+
+```{r}
+y=x
+f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels=45,add=T) #creates a contour plot which is useful for representing topographical data or the gradient of a function (e.g. for gradient descent visualisation - needs a vector of x values, a vector of y values and a matrix of elements that correspond to the z value for each pair of x,y coordinates)
+fa=(f-t(f))/2
+contour(x,y,fa,nlevels=15)
+```
+
+```{r}
+image(x,y,fa) #or we can createa a heatmap using image
+persp(x,y,fa) #or use persp() to create a contour plot with theta and phi representing parameters to control the angles at which we view the plot (as you can see below)
+persp(x,y,fa,theta=30)
+persp(x,y,fa,theta=30,phi=20)
+persp(x,y,fa,theta=30,phi=70)
+persp(x,y,fa,theta=30,phi=40)
+```
+
+
+# Indexing Data
+
+
+```{r}
+A=matrix(1:16,4,4) #we can create a matrix
+A
+```
+```{r}
+A[2,3] #and use indexing and slicing to select values
+```
+
+```{r}
+A[c(1,3),c(2,4)] #select 1st and 3rd rows and 2nd and 4th columns
+A[1:3,2:4] #select rows 1 to 3 and columns 2 to 4
+```
+
+```{r}
+A[1:2,] #select rows 1 to 2 and all columns
+A[,1:2] #select all rows and colums 1 to 2
+A[1,] #select row 1
+```
+
+```{r}
+A[-c(1,3),]
+A[-c(1,3),-c(1,3,4)] #not rows 1 or 3 and not columns 1,3 or 4 so rows 2 and 4 of column 2
+dim(A) #establish the shape of A expressed as row column
+```
+
+
